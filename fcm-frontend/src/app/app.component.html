@@ -1,0 +1,40 @@
+<div class="init-row">
+  <ng-container *ngIf="notSupported">
+    <div>No se detectaron Service Workers.</div>
+  </ng-container>
+  <ng-container *ngIf="loading">
+    <div>Cargando...</div><app-spinner></app-spinner>
+  </ng-container>
+  <ng-container *ngIf="!loading">
+    <form class="message-sender" [formGroup]="frmEnviarMensaje" (submit)="enviarMensaje()">
+      <ul class="fields">        
+        <li class="row">
+          <h5>Título:</h5>
+          <input type="text" formControlName="titulo" />
+        </li>
+        <li class="row">
+          <h5>Mensaje:</h5>
+          <input type="text" formControlName="texto" />
+        </li>
+        <li class="row">
+          <h5>URL Imagen:</h5>
+          <input type="text" formControlName="imagen" />
+        </li>
+        <li class="row">
+          <h5>Demorar envío: (milisegundos)</h5>
+          <input type="number" formControlName="delay" />
+        </li>
+        <ng-container *ngIf="!permitirNotificaciones">
+          <li class="row">
+            Debe habilitar las notificaciones desde el navegador para poder enviar mensajes.
+          </li>
+        </ng-container>
+      </ul>
+      <div class="buttons">
+        <button type="submit" [disabled]="!permitirNotificaciones">Enviar</button>
+      </div>
+    </form>
+  </ng-container>
+</div>
+
+<router-outlet></router-outlet>
